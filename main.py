@@ -4,13 +4,12 @@ from PyQt5 import uic
 from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtWidgets import QApplication, QMessageBox
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
-from UI import Ui_MainWindow
 
 
-class Main(QMainWindow, Ui_MainWindow):
+class Main(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setupUi(self)
+        uic.loadUi("UI.ui", self)
         self.draw_btn.clicked.connect(self.paint)
         self.do_paint = False
         self.coords = (250, 250)
@@ -22,7 +21,7 @@ class Main(QMainWindow, Ui_MainWindow):
     def draw(self, qp):
         r = randrange(5, 200)
         self.coords = (randrange(r, self.width() - r), randrange(r, self.width() - r))
-        qp.setBrush(QColor(randrange(0, 255), randrange(0, 255), randrange(0, 255)))
+        qp.setBrush(QColor(255, 255, 0))
         qp.drawEllipse(self.coords[0] - r, self.coords[1] - r, 2 * r, 2 * r)
 
     def paintEvent(self, event):
@@ -43,3 +42,4 @@ if __name__ == "__main__":
     main.show()
     sys.excepthook = except_hook
     sys.exit(app.exec())
+
